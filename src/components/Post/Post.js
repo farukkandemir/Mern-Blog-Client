@@ -1,15 +1,23 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./Post.css";
 import {app} from "../../utils/axiosConfig";
 import {Link, useNavigate} from "react-router-dom";
 import moment from "moment";
+import {useContextAPI} from "../../context/Context";
 
 function Post({post, id}) {
   const imageFolder = "https://mern-blog-api.onrender.com/images/";
   const navigate = useNavigate();
+  const {user} = useContextAPI();
 
   async function handleDelete(id) {
-    await app.delete(`/api/blogs/${id}`).catch((err) => console.log(err));
+    await app
+      .delete(`/api/blogs/${id}`, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
+      .catch((err) => console.log(err));
 
     navigate(0);
   }
