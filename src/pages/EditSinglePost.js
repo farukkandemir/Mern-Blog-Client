@@ -1,14 +1,14 @@
-import axios from "axios";
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Header from "../components/Header/Header";
+import {useContextAPI} from "../context/Context";
 import {app} from "../utils/axiosConfig";
 
 function EditSinglePost() {
   const {id} = useParams();
   const navigate = useNavigate();
   const [singlePost, setSinglePost] = useState();
-
+  const {user} = useContextAPI();
   const titleRef = useRef();
   const bodyRef = useRef();
 
