@@ -1,7 +1,8 @@
 import React, {useRef} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import axios from "axios";
+
 import {useContextAPI} from "../../context/Context";
+import {app} from "../../utils/axiosConfig";
 
 function LoginForm() {
   const usernameRef = useRef("");
@@ -16,8 +17,8 @@ function LoginForm() {
 
     dispatch({type: "LOGIN_START"});
 
-    const loginResult = await axios
-      .post("http://localhost:4000/api/login", {
+    const loginResult = await app
+      .post("/api/login", {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       })

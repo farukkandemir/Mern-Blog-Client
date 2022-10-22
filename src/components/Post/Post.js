@@ -1,6 +1,6 @@
 import React from "react";
 import "./Post.css";
-import axios from "axios";
+import {app} from "../../utils/axiosConfig";
 import {Link} from "react-router-dom";
 import moment from "moment";
 import {useContextAPI} from "../../context/Context";
@@ -11,7 +11,7 @@ function Post({post, id}) {
   const {user} = useContextAPI();
 
   async function handleDelete(id) {
-    const result = await axios
+    const result = await app
       .delete(`/api/blogs/${id}`, {
         headers: {
           authorization: `Bearer ${user.accessToken}`,

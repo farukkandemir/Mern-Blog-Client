@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import Header from "../components/Header/Header";
 import {useContextAPI} from "../context/Context";
-import axios from "axios";
+
 import {useNavigate} from "react-router-dom";
+import {app} from "../utils/axiosConfig";
 
 function NewPost() {
   const {user} = useContextAPI();
@@ -26,7 +27,7 @@ function NewPost() {
     formdata.append("blogBody", data.blogBody);
     formdata.append("authorId", data.authorId);
 
-    const result = await axios
+    const result = await app
       .post("/api/blogs", formdata, {
         headers: {
           authorization: `Bearer ${user.accessToken}`,

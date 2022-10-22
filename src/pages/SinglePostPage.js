@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import Header from "../components/Header/Header";
-import axios from "axios";
 import moment from "moment";
 import {useParams} from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import {useContextAPI} from "../context/Context";
+import {app} from "../utils/axiosConfig";
 
 function SinglePostPage() {
   const {id} = useParams();
@@ -16,7 +16,7 @@ function SinglePostPage() {
   const imageFolder = "http://localhost:4000/images/";
 
   async function getSinglePost() {
-    const post = await axios
+    const post = await app
       .get(`/api/blogs/${id}`, {
         headers: {
           authorization: `Bearer ${user.accessToken}`,

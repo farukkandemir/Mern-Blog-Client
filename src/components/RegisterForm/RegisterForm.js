@@ -1,20 +1,22 @@
 import React, {useRef} from "react";
-import {Link} from "react-router-dom";
-import axios from "axios";
+import {Link, useNavigate} from "react-router-dom";
+
 import {useContextAPI} from "../../context/Context";
+import {app} from "../../utils/axiosConfig";
 
 function RegisterForm() {
   const usernameRef = useRef("");
   const emailRef = useRef("");
   const passwordRef = useRef("");
 
+  const navigate = useNavigate();
   const {dispatch, messages} = useContextAPI();
 
   async function handleRegister(e) {
     e.preventDefault();
 
-    const registerResult = await axios
-      .post(" http://localhost:4000/api/users/register", {
+    const registerResult = await app
+      .post(" /api/users/register", {
         username: usernameRef.current.value,
         email: emailRef.current.value,
         password: passwordRef.current.value,
@@ -24,7 +26,7 @@ function RegisterForm() {
         dispatch({type: "REGISTER_FAILURE", payload: err.response.data.errors});
       });
 
-    registerResult.data && window.location.replace("/login");
+    registerResult.data && navigate("/login");
   }
 
   return (

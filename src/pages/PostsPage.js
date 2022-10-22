@@ -3,14 +3,14 @@ import Header from "../components/Header/Header";
 import Post from "../components/Post/Post";
 import {useContextAPI} from "../context/Context";
 
-import axios from "axios";
+import {app} from "../utils/axiosConfig";
 
 function PostsPage() {
   const {user} = useContextAPI();
   const [blogs, setBlogs] = useState([]);
 
   async function getBlogs() {
-    const blogs = await axios
+    const blogs = await app
       .get(`/api/blogs?authorId=${user.id}`, {
         headers: {
           authorization: `Bearer ${user.accessToken}`,

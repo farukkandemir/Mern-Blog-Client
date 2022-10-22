@@ -2,6 +2,7 @@ import axios from "axios";
 import React, {useEffect, useRef, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import Header from "../components/Header/Header";
+import {app} from "../utils/axiosConfig";
 
 function EditSinglePost() {
   const {id} = useParams();
@@ -12,14 +13,14 @@ function EditSinglePost() {
   const bodyRef = useRef();
 
   async function getSinglePost() {
-    const post = await axios.get(`/api/blogs/${id}`).catch((err) => console.log(err));
+    const post = await app.get(`/api/blogs/${id}`).catch((err) => console.log(err));
 
     setSinglePost(post.data);
   }
 
   async function handleEdit(e) {
     e.preventDefault();
-    const result = await axios
+    const result = await app
       .put(`/api/users/blogs/${id}`, {
         title: titleRef.current.value,
         blogBody: bodyRef.current.value,
@@ -52,18 +53,7 @@ function EditSinglePost() {
               ref={titleRef}
             />
           </div>
-          {/* <div>
-            <label htmlFor="blog-images" className="d-block">
-              Select image for Post
-            </label>
-            <input
-              type="file"
-              id="blog-images"
-              className="mb-4"
-              name="blogImage"
-             
-            />
-          </div> */}
+
           <div className="form-group">
             <label htmlFor="blogBody">Post Body</label>
             <textarea
