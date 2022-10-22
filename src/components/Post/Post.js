@@ -9,10 +9,6 @@ function Post({post, id}) {
   const imageFolder = "https://mern-blog-api.onrender.com/images/";
   const navigate = useNavigate();
 
-  const refreshPage = () => {
-    navigate(0);
-  };
-
   const {user} = useContextAPI();
 
   async function handleDelete(id) {
@@ -24,7 +20,7 @@ function Post({post, id}) {
       })
       .catch((err) => console.log(err));
 
-    refreshPage();
+    navigate(0);
   }
 
   return (
