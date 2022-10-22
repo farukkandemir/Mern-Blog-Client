@@ -13,7 +13,13 @@ function EditSinglePost() {
   const bodyRef = useRef();
 
   async function getSinglePost() {
-    const post = await app.get(`/api/blogs/${id}`).catch((err) => console.log(err));
+    const post = await app
+      .get(`/api/blogs/${id}`, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
+      .catch((err) => console.log(err));
 
     setSinglePost(post.data);
   }

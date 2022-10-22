@@ -16,7 +16,7 @@ function Post({post, id}) {
   const {user} = useContextAPI();
 
   async function handleDelete(id) {
-    const result = await app
+    await app
       .delete(`/api/blogs/${id}`, {
         headers: {
           authorization: `Bearer ${user.accessToken}`,
@@ -24,7 +24,7 @@ function Post({post, id}) {
       })
       .catch((err) => console.log(err));
 
-    navigate(0);
+    refreshPage();
   }
 
   return (
