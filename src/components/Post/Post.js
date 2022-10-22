@@ -6,7 +6,7 @@ import moment from "moment";
 import {useContextAPI} from "../../context/Context";
 
 function Post({post, id}) {
-  const imageFolder = "http://localhost:4000/images/";
+  const imageFolder = "https://mern-blog-api.onrender.com/images/";
 
   const {user} = useContextAPI();
 
