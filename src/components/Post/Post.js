@@ -15,7 +15,7 @@ function Post({post, id}) {
     await app
       .delete(`/api/blogs/${id}`, {
         headers: {
-          authorization: `Bearer ${user.accessToken}`,
+          authorization: `Bearer ${user?.accessToken}`,
         },
       })
       .catch((err) => console.log(err));
