@@ -37,7 +37,7 @@ function SinglePostPage() {
       })
       .catch((err) => console.log(err));
 
-    navigate(0);
+    navigate("/dashboard");
   }
 
   useEffect(() => {
