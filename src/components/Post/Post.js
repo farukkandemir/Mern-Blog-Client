@@ -1,12 +1,13 @@
 import React from "react";
 import "./Post.css";
 import {app} from "../../utils/axiosConfig";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import moment from "moment";
 import {useContextAPI} from "../../context/Context";
 
 function Post({post, id}) {
   const imageFolder = "https://mern-blog-api.onrender.com/images/";
+  const navigate = useNavigate();
 
   const {user} = useContextAPI();
 
@@ -19,7 +20,7 @@ function Post({post, id}) {
       })
       .catch((err) => console.log(err));
 
-    result.data && window.location.reload();
+    result.data && navigate("/dashboard");
   }
 
   return (
