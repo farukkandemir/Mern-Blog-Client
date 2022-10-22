@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Header from "../components/Header/Header";
 import moment from "moment";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import {useContextAPI} from "../context/Context";
 import {app} from "../utils/axiosConfig";
@@ -27,6 +27,19 @@ function SinglePostPage() {
     setSinglePost(post.data);
   }
 
+  const navigate = useNavigate();
+  async function handleDelete(id) {
+    await app
+      .delete(`/api/blogs/${id}`, {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      })
+      .catch((err) => console.log(err));
+
+    navigate(0);
+  }
+
   useEffect(() => {
     getSinglePost();
   }, []);
@@ -40,6 +53,14 @@ function SinglePostPage() {
         <h2 className="mt-4 text-center">{singlePost?.title}</h2>
         <p>{`${singlePost?.blogBody}`}</p>
         <small>{moment(singlePost?.createdAt).format("MMMM Do YYYY, h:mm:ss a")}</small>
+        <button
+          className="btn-sm btn btn-danger mr-2"
+          style={{fontSize: "0.7rem"}}
+          id={id}
+          onClick={(e) => handleDelete(e.target.id)}
+        >
+          Delete
+        </button>
       </section>
 
       <Footer />
